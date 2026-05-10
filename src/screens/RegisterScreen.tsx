@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+
+
 import {
   View,
   Text,
@@ -7,18 +9,34 @@ import {
   StyleSheet,
   SafeAreaView,
   StatusBar,
+  ScrollView,
 } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import { useRouter } from 'expo-router'; // Importación necesaria para Expo Router
 
-const LoginScreen = () => {
+const RegisterScreen = () => {
+  const router = useRouter(); // Hook para la navegación
+
+  // Estados para cada campo del formulario
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [mobilePhone, setMobilePhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [country, setCountry] = useState('Colombia');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [FirstName, setFirstName] = useState('');
-  const [LastName, setLastName] = useState('');
-  const [MobilPhone, setMobilPhone] = useState('');
-  const [Address, setAddress] = useState('');
 
-  const handleLogin = () => {
-    console.log('Login pressed');
+  const handleSignUp = () => {
+    // Aquí iría la lógica para registrar al usuario (API call)
+    console.log('Datos de registro:', {
+      firstName,
+      lastName,
+      mobilePhone,
+      address,
+      country,
+      email,
+      password,
+    });
   };
 
   return (
@@ -28,198 +46,199 @@ const LoginScreen = () => {
       {/* HEADER */}
       <View style={styles.header}>
         <Text style={styles.bankName}>NovaBank</Text>
-        <Text style={styles.subtitle}>
-          Secure Mobile Banking
-        </Text>
+        <Text style={styles.subtitle}>Secure Mobile Banking</Text>
       </View>
 
       {/* CARD */}
       <View style={styles.card}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text style={styles.title}>Register</Text>
 
-        <Text style={styles.title}>Welcome Register</Text>
+          {/* FIRST NAME */}
+          <Text style={styles.label}>First Name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your first name"
+            placeholderTextColor="#94A3B8"
+            value={firstName}
+            onChangeText={setFirstName}
+          />
 
-        {/* EMAIL */}
-        <Text style={styles.label}>FirstName</Text>
+          {/* LAST NAME */}
+          <Text style={styles.label}>Last Name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your last name"
+            placeholderTextColor="#94A3B8"
+            value={lastName}
+            onChangeText={setLastName}
+          />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your FirstName"
-          placeholderTextColor="#94A3B8"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          value={FirstName}
-          onChangeText={setFirstName}
-        />
+          {/* MOBILE PHONE */}
+          <Text style={styles.label}>Mobile Phone</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your mobile phone"
+            placeholderTextColor="#94A3B8"
+            keyboardType="phone-pad"
+            value={mobilePhone}
+            onChangeText={setMobilePhone}
+          />
 
-        {/* PASSWORD */}
-        <Text style={styles.label}>LastName</Text>
+          {/* ADDRESS */}
+          <Text style={styles.label}>Address</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your address"
+            placeholderTextColor="#94A3B8"
+            value={address}
+            onChangeText={setAddress}
+          />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your Lastname"
-          placeholderTextColor="#94A3B8"
-          secureTextEntry
-          value={LastName}
-          onChangeText={setLastName}
-        />
-        <Text style={styles.label}>Mobile Phone</Text>
+          {/* COUNTRY */}
+          <Text style={styles.label}>Country</Text>
+          <View style={styles.pickerContainer}>
+            <Picker
+              selectedValue={country}
+              onValueChange={(itemValue) => setCountry(itemValue)}
+              style={styles.picker}
+            >
+              <Picker.Item label="Colombia" value="Colombia" />
+              <Picker.Item label="Argentina" value="Argentina" />
+              <Picker.Item label="Mexico" value="Mexico" />
+              <Picker.Item label="Spain" value="Spain" />
+              <Picker.Item label="United States" value="United States" />
+            </Picker>
+          </View>
 
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your Mobil Phone"
-          placeholderTextColor="#94A3B8"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          value={MobilPhone}
-          onChangeText={setMobilPhone}
-        />
-        <Text style={styles.label}>Address</Text>
+          {/* EMAIL */}
+          <Text style={styles.label}>Email</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your email"
+            placeholderTextColor="#94A3B8"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            value={email}
+            onChangeText={setEmail}
+          />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your Address"
-          placeholderTextColor="#94A3B8"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          value={Address}
-          onChangeText={setAddress}
-        />
-         <Text style={styles.label}>Email</Text>
+          {/* PASSWORD */}
+          <Text style={styles.label}>Password</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your password"
+            placeholderTextColor="#94A3B8"
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+          />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your email"
-          placeholderTextColor="#94A3B8"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          value={email}
-          onChangeText={setEmail}
-        />
+          {/* SIGN UP BUTTON */}
+          <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
+            <Text style={styles.signUpButtonText}>Sign Up</Text>
+          </TouchableOpacity>
 
-        <Text style={styles.label}>Password</Text>
-
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your password"
-          placeholderTextColor="#94A3B8"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
-
-        {/* LOGIN BUTTON */}
-        <TouchableOpacity
-          style={styles.loginButton}
-          onPress={handleLogin}
-        >
-          <Text style={styles.loginButtonText}>
-            Login
-          </Text>
-        </TouchableOpacity>
-
-        {/* REGISTER */}
-        <TouchableOpacity>
-          <Text style={styles.registerText}>
-            I don't have an account
-
-          </Text>
-        </TouchableOpacity>
-
+          {/* REDIRECCIÓN A LOGIN */}
+<TouchableOpacity 
+  style={styles.loginLinkContainer}
+// @ts-ignore
+onPress={() => router.push('/login' as any)}
+>
+  <Text style={styles.loginLinkText}>I already have an account</Text>
+</TouchableOpacity>
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
     backgroundColor: '#0F172A',
   },
-
   header: {
     paddingHorizontal: 30,
-    marginTop: 80,
-    marginBottom: 40,
+    marginTop: 50,
+    marginBottom: 25,
   },
-
   bankName: {
     color: '#FFFFFF',
     fontSize: 38,
     fontWeight: 'bold',
     letterSpacing: 1,
   },
-
   subtitle: {
     color: '#CBD5E1',
-    marginTop: 10,
+    marginTop: 5,
     fontSize: 16,
   },
-
   card: {
     flex: 1,
     backgroundColor: '#FFFFFF',
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
-    padding: 30,
+    paddingHorizontal: 30,
+    paddingTop: 30,
   },
-
   title: {
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: '700',
     color: '#0F172A',
-    marginBottom: 35,
+    marginBottom: 25,
   },
-
   label: {
     color: '#334155',
-    fontSize: 15,
-    marginBottom: 10,
+    fontSize: 14,
+    marginBottom: 8,
     fontWeight: '600',
   },
-
   input: {
     backgroundColor: '#F1F5F9',
-    borderRadius: 14,
-    paddingVertical: 16,
-    paddingHorizontal: 18,
+    borderRadius: 12,
+    paddingVertical: 14,
+    paddingHorizontal: 16,
     fontSize: 16,
-    marginBottom: 22,
+    marginBottom: 18,
     color: '#0F172A',
     borderWidth: 1,
     borderColor: '#E2E8F0',
   },
-
-  loginButton: {
+  pickerContainer: {
+    backgroundColor: '#F1F5F9',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    marginBottom: 18,
+    justifyContent: 'center',
+  },
+  picker: {
+    height: 50,
+    color: '#0F172A',
+  },
+  signUpButton: {
     backgroundColor: '#0F172A',
-    paddingVertical: 18,
-    borderRadius: 14,
+    paddingVertical: 16,
+    borderRadius: 12,
     alignItems: 'center',
     marginTop: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 5,
+    elevation: 3,
   },
-
-  loginButtonText: {
+  signUpButtonText: {
     color: '#FFFFFF',
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '700',
   },
-
-  registerText: {
-    textAlign: 'center',
-    marginTop: 28,
+  loginLinkContainer: {
+    paddingVertical: 25,
+    alignItems: 'center',
+  },
+  loginLinkText: {
     color: '#2563EB',
     fontSize: 15,
     fontWeight: '600',
   },
-
 });

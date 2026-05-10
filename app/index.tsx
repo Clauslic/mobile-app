@@ -1,4 +1,4 @@
-import LoginScreen from "@/src/screens/RegisterScreen";
+import LoginScreen from "@/src/screens/LoginScreen";
 export default function Index(){
   return<LoginScreen/>;
 }

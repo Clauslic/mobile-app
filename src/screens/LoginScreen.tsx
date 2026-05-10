@@ -60,27 +60,28 @@ const LoginScreen = () => {
         />
 
         {/* LOGIN BUTTON */}
-               <TouchableOpacity
-                 style={styles.loginButton}
-                 onPress={handleLogin}
-               >
-                 <Text style={styles.loginButtonText}>
-                   Login
-                 </Text>
-               </TouchableOpacity>
-       
-               {/* REGISTER */}
-               <TouchableOpacity>
-                 <Text style={styles.registerText}>
-                  
-                   I don't have an account
-                 </Text>
-               </TouchableOpacity>
-       
-             </View>
-           </SafeAreaView>
-  );
-};
+        <TouchableOpacity
+          style={styles.loginButton}
+          onPress={handleLogin}
+        >
+          <Text style={styles.loginButtonText}>
+            Login
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={styles.loginLinkContainer}
+        // @ts-ignore
+        onPress={() => router.push('/login' as any)}
+        >
+          <Text style={styles.loginLinkText}>I don have</Text>
+        </TouchableOpacity>
+          </ScrollView>
+          </View>
+        </SafeAreaView>
+        
+      );
+    };
 
 export default LoginScreen;
 
@@ -172,6 +173,6 @@ const styles = StyleSheet.create({
     color: '#2563EB',
     fontSize: 15,
     fontWeight: '600',
-  },
+  },g
 
 });
